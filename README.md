@@ -1,1 +1,1 @@
-# RssFeed
+# Simple RSS reader
