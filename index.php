@@ -11,12 +11,8 @@
 
 </head>
 <body>
-	<?php require_once 'core/rss.php'; ?>
-	
 	<div class="container">
-		<div class="row"><?php getFeeds(); ?></div>
-		
-
+		<?php include_once 'core/RssFeeds.php'; ?>
 	</div>
 </body>
 </html>
