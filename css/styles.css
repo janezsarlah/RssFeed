@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 .ellipsis {
 	white-space: nowrap;
 	overflow: hidden;
@@ -12,6 +17,16 @@
 	font-size: 16px;
 }
 
+.navbar { margin-bottom: -12px; }
+
+.navbar-default .navbar-brand, a{
+	color: #47875D;
+}
+
+a:hover {
+	color: #2B5138;
+}
+
 ol { padding: 0; }
 
 li {
@@ -24,5 +39,17 @@ li {
 .row { padding-top: 40px; }
 
 .col-md-4 { padding: 0 15px; }
+
+.footer {
+	padding-top: 100px;
+  	bottom: 0;
+  	width: 100%;
+  	height: 60px;
+}
+
+.footer p, h6 {
+	text-align: center;
+}
+
 
 
