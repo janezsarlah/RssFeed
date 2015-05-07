@@ -1,6 +1,5 @@
 <?php 
 
-include_once('../error/ini.php');
 include_once 'rss-links.php';
 
 class SitePost {
