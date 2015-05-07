@@ -5,6 +5,15 @@
 	-o-text-overflow: ellipsis;
 }
 
+.site-header {
+	padding-bottom: 9px;
+	margin: 40px 0 20px;
+	border-bottom: 1px solid #000;
+	font-size: 16px;
+}
+
+ol { padding: 0; }
+
 li {
 	line-height: 2;
 	font-size: 14px;
@@ -12,6 +21,8 @@ li {
 	padding-left: 20px;
 }
 
-.row {
-	padding-top: 40px;
-}
+.row { padding-top: 40px; }
+
+.col-md-4 { padding: 0 15px; }
+
+

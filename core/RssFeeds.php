@@ -7,19 +7,19 @@ class RssFeeds {
 	var $posts = array();
 	var $rowCounter = 0;
 	var $postCounter = 0;
+	var $maxPosts = 5;
 	var $maxTitleLenght = 40;
 
 	public function __construct($urls) {
 
 		foreach ($urls as $url) {
 			$content = simplexml_load_file($url);
-			$items = $content->xpath(sprintf('/rss/channel/item[position() <= %d]', 5));
+			$items = $content->xpath(sprintf('/rss/channel/item[position() <= %d]', $this->maxPosts));
 
 			foreach ($items as $item) {
 				$post = new Site();
 				$post->title = (string) $content->channel->title;
 				$post->postTitle = (string) $item->title;
-				//$post->postTitleSummary = $this->titleSummary($item->title);
 				$post->link = (string) $item->link;
 
 				$this->posts[] = $post;
@@ -38,7 +38,7 @@ class RssFeeds {
 			$this->rowCounter++;
 
 			if($this->postCounter == 0)
-				echo '<div class="col-md-4"><ol>';
+				echo '<div class="col-md-4"><div class="site-header">' . $this->trimmedTitle($post->title) . '</div><ol>';
 
 			$this->postCounter++;
 
@@ -46,23 +46,26 @@ class RssFeeds {
 				   '" title = "' . $post->postTitle . 
 				   '" target = "_blank">' . $this->postCounter . '. ' . $post->postTitle . '</a></li>';
 
-			if($this->postCounter == 5) {
+			if($this->postCounter == $this->maxPosts) {
 				$this->postCounter = 0;
 				echo '</ol></div>';
 			}
 			
-			if($this->rowCounter == 15) {
+			if($this->rowCounter == ($this->maxPosts*3)) {
 				$this->rowCounter = 0;
 				echo '</div>';
 			}	
 		}		
 	}
 
-	private function titleSummary($summary) {
-		if(strlen($summary) > $this->maxTitleLenght)
-			$summary = substr($summary, 0, $this->maxTitleLenght) . '...';
+	private function trimmedTitle($title) {
 
-		return $summary;
+		if(substr($title, 0, strpos($title, '-')))
+			$title = substr($title, 0, strpos($title, '-'));
+		else if(substr($title, 0, strpos($title, ':'))) 
+			$title = substr($title, 0, strpos($title, ':'));
+		
+		return $title;
 	}
 }
 
