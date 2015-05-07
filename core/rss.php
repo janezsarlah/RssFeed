@@ -1,42 +1,25 @@
 <?php 
 
-ini_set('display_errors',1);  
-error_reporting(E_ALL);
+include_once('../error/ini.php');
+include_once 'rss-links.php';
 
-function getFeeds() {
-	require_once 'rss-links.php';
+class SitePost {
+	var $data;
+	var $ts;
+	var $link;
+	var $title;
+}
 
-	foreach ($links as $link) {
-		$channel = file_get_contents($link);
+class SiteFeed {
+	var $posts = array();
 
-		$content = new SimpleXmlElement($channel);
+	function __construct($urls) {
 		
-		displayFeeds($content);		
-	}	
-}
-
-
-function displayFeeds($content) {
-	
-	echo '<div class="col-md-4"><h3><a href="' . $content->channel->link . '">' . $content->channel->title . '</a></h3><ul>';
-	 
-	for($i = 0; $i < 10; $i++) {
-		$title = $content->channel->item[$i]->title;
-
-		if(strlen($title) > 40) {
-			$title = substr($title, 0, 40);
-			$title = $title . " ...";
-		} 
-
-		$display = '<li><a href = "' . $content->channel->item[$i]->link . 
-				   '" title = "' . $content->channel->item[$i]->title . 
-				   '" target = "_blank">' . $title . '</a></li>';
-
-		echo $display;
 	}
-
-	echo "</ul></div>";
 }
+
+$feed = new SiteFeed($urls);
+
 
 
 
